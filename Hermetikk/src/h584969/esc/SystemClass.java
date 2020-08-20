@@ -2,32 +2,24 @@ package h584969.esc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+import javax.print.attribute.standard.Copies;
 
-public abstract class SystemClass<T extends ComponentClass> implements Runnable{
+public abstract class SystemClass<T extends ComponentClass> extends Thread{
+	private ComponentSystem listener = null;
 	ArrayList<T> activeComponents;
 	HashMap<Long,Integer> indexMap;
-	
-	
-	
 	private long systemID;
 	
+	
+	
 	public SystemClass() {
+		super();
 		activeComponents = new ArrayList<>();
 	}
 	
-	void addComponentToEntity(GameObject target) {
-		if (hasComponent(target)) return;
-		T comp = addComponent(target);
-		
-		activeComponents.add(comp);
-		indexMap.put(target.getID(), activeComponents.size()-1);
-	}
-	
-	void rinse() {
-		
-	}
-	
-	public void removeComponent(GameObject target) {
+
+	public final void removeComponent(GameObject target) {
 		if (!hasComponent(target)) return;
 		
 		//indeksen til målet
@@ -54,25 +46,40 @@ public abstract class SystemClass<T extends ComponentClass> implements Runnable{
 			indexMap.remove(target.getID());
 		}
 	}
-	
-	public boolean hasComponent(GameObject target) {
+	public final boolean hasComponent(GameObject target) {
 		return indexMap.containsKey(target.getID());
 	}
-	
-	public T getComponent(GameObject target) {
+	public final T getComponent(GameObject target) {
 		if (!hasComponent(target)) return null;
 		return activeComponents.get(indexMap.get(target.getID()));
 	}
 	
 	@Override
-	public void run() {
-		System.out.println("System: " + systemID + " har startet");
-		this.start();
+	public final void run() {
+		System.out.println("system: " + getID() + " har startet");
+		start();
 	}
 	
-	protected abstract void start();
 	
 	
+	void addComponentToEntity(GameObject target) {
+		if (hasComponent(target)) return;
+		T comp = addComponent(target);
+		
+		activeComponents.add(comp);
+		indexMap.put(target.getID(), activeComponents.size()-1);
+	}
+	
+	void setListener(ComponentSystem componentSystem) {
+		this.listener = componentSystem;
+	}
+	
+	void rinse() {
+		
+	}
+	
+	
+
 	void setID(long id) {
 		systemID = id;
 	}
@@ -81,6 +88,8 @@ public abstract class SystemClass<T extends ComponentClass> implements Runnable{
 		return systemID;
 	}
 	
+	
+	public abstract void start();
 	public abstract T addComponent(GameObject target);
 	
 	

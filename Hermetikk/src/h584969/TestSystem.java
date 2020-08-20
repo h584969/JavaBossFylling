@@ -18,8 +18,9 @@ public class TestSystem extends SystemClass<TestComponent> implements Tickable {
 
 	@Override
 	public void tick() {
-		System.out.println(getID() + " tikk");
-		
+		for (int i = 0; i < 1000; i++) {
+			System.out.println("tikk nr: " + i + " fra system " + getID());
+		}
 	}
 
 }

@@ -10,6 +10,8 @@ public class ComponentSystem{
 	
 	private ArrayList<Thread> threads;
 	
+	
+	
 	public ComponentSystem(){
 		systems = new ArrayList<SystemClass<? extends ComponentClass>>();
 		tickables = new ArrayList<>();
@@ -24,6 +26,12 @@ public class ComponentSystem{
 		}
 	}
 
+	public void tick() {
+		for (Tickable t : tickables) {
+			t.tick();
+		}
+	}
+	
 	public void startEngine() {
 		for (int i = 0; i < systems.size(); i++) {
 			Thread t = new Thread(systems.get(i));
