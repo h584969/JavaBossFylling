@@ -7,9 +7,10 @@ import h584969.engine.EntityModule;
 import h584969.engine.IEntityMessage;
 import h584969.engine.data.TransformData;
 import h584969.engine.data.packet.DataPacket;
+import h584969.engine.modules.IEntityDataProvider;
 import h584969.util.Vector2;
 
-public class PhysicsModule extends EntityModule<TransformData> {
+public class PhysicsModule extends EntityModule implements IEntityDataProvider<TransformData> {
 	public static final int SET_POSITION = 1;
 	public static final int SET_SCALE = 2;
 	public static final int SET_ROTATION = 3;

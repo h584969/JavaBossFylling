@@ -10,7 +10,7 @@ import h584969.engine.IEntityMessage;
 import h584969.engine.data.TransformData;
 import h584969.engine.data.packet.DataPacket;
 
-public class DrawingModule extends EntityModule<TransformData>{
+public class DrawingModule extends EntityModule{
 
 	
 	private final HashSet<Long> sprites = new HashSet<>();
@@ -56,9 +56,6 @@ public class DrawingModule extends EntityModule<TransformData>{
 
 	@Override
 	public synchronized void sendMessage(IEntityMessage message) {}
-	
-	@Override
-	public void copyData(DataPacket<TransformData> dataPacker) {}
 	
 	public void drawSprites(final Graphics2D g2d) {
 		synchronized (g2d) {

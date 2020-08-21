@@ -1,8 +1,6 @@
 package h584969.engine;
-import h584969.engine.data.packet.DataPacket;
-import h584969.engine.data.packet.IPacket;
 
-public abstract class EntityModule<T extends IPacket<T>> implements Runnable{
+public abstract class EntityModule implements Runnable{
 	
 	private boolean running = true;
 	protected int dataRetrievalRate = 1;
@@ -62,10 +60,4 @@ public abstract class EntityModule<T extends IPacket<T>> implements Runnable{
 		System.err.println("Error! Feil meldingsType. forventet " + expected + " men fikk " + recieved);
 	}
 	
-	/**
-	 * blir kalt når en modul vil kopiere informasjonen til denne modulen
-	 * 
-	 * @param dataPacker pakkeren som skal ta inn dataen
-	 */
-	public abstract void copyData(DataPacket<T> dataPacker);
 }

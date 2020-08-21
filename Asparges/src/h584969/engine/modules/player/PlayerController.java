@@ -16,7 +16,7 @@ import h584969.engine.modules.physics.SetPositionMessage;
 import h584969.engine.modules.physics.TranslateMessage;
 import h584969.graphics.Drawing;
 
-public class PlayerController extends EntityModule<TransformData> {
+public class PlayerController extends EntityModule {
 	final Object lock = new Object();
 	
 	long id = 0L;
@@ -64,8 +64,5 @@ public class PlayerController extends EntityModule<TransformData> {
 
 	@Override
 	public void sendMessage(IEntityMessage message) {}
-
-	@Override
-	public void copyData(DataPacket<TransformData> dataPacker) {}
 
 }

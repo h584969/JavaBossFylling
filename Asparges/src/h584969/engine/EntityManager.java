@@ -27,7 +27,7 @@ import h584969.engine.modules.player.PlayerController;
 
 public class EntityManager {
 	private static ArrayList<Thread> threads = new ArrayList<>();
-	private static ArrayList<EntityModule<? extends IPacket<? extends Object>>> modules = new ArrayList<>();
+	private static ArrayList<EntityModule> modules = new ArrayList<>();
 	
 	public static final PhysicsModule PHYSICS = (PhysicsModule) addModule(new PhysicsModule());
 	public static final DrawingModule DRAWING = (DrawingModule) addModule(new DrawingModule());
@@ -38,7 +38,7 @@ public class EntityManager {
 		}
 	}
 	public static final void terminate() {
-		for (EntityModule<? extends IPacket<? extends Object>> module : modules) {
+		for (EntityModule module : modules) {
 			module.termiate();
 		}
 		
@@ -60,8 +60,6 @@ public class EntityManager {
 	}
 	
 	
-	//TODO finne en litt bedre måte å gjøre dette her på
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private static EntityModule addModule(EntityModule moduleIn){
 		modules.add(moduleIn);
 		threads.add(new Thread(moduleIn));
