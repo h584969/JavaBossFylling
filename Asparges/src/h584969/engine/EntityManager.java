@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import h584969.engine.data.packet.IPacket;
 import h584969.engine.modules.drawing.DrawingModule;
 import h584969.engine.modules.physics.PhysicsModule;
+import h584969.engine.modules.player.PlayerController;
 
 /*
  * struktur:
@@ -30,7 +31,7 @@ public class EntityManager {
 	
 	public static final PhysicsModule PHYSICS = (PhysicsModule) addModule(new PhysicsModule());
 	public static final DrawingModule DRAWING = (DrawingModule) addModule(new DrawingModule());
-	
+	public static final PlayerController PLAYER_CONTROLLER = (PlayerController) addModule(new PlayerController());
 	public static final void start() {
 		for (Thread t : threads) {
 			t.start();

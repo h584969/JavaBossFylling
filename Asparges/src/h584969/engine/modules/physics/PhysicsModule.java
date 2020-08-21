@@ -115,11 +115,34 @@ public class PhysicsModule extends EntityModule<TransformData> {
 				}
 			}break;
 			case SET_SCALE: {
-				
+				try {
+					SetScaleMessage msg = (SetScaleMessage)message;
+					synchronized (processingData) {
+						TransformData t = processingData.get(msg.id);
+						Vector2 p = t.getScale();
+						p.setX(msg.x);
+						p.setY(msg.y);
+						t.setScale(p);
+						t.markDirty();
+					}
+				}catch (ClassCastException e) {
+					System.err.println(message.getClass().getName() + " er ikke en gyldig melding for " + SetScaleMessage.class.getName());
+					e.printStackTrace();
+				}
 				
 			}break;
 			case SET_ROTATION: {
-				
+				try {
+					SetRotationMessage msg = (SetRotationMessage)message;
+					synchronized (processingData) {
+						TransformData t = processingData.get(msg.id);
+						t.setRotation(msg.rotation);
+						t.markDirty();
+					}
+				}catch (ClassCastException e) {
+					System.err.println(message.getClass().getName() + " er ikke en gyldig melding for " + SetPositionMessage.class.getName());
+					e.printStackTrace();
+				}
 				
 			}break;
 			default:

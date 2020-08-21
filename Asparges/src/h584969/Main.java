@@ -24,6 +24,7 @@ public class Main extends JFrame{
 		
 		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addKeyListener(new Input());
 		this.addWindowListener(new WindowListener() {
 			
 			@Override
@@ -61,16 +62,16 @@ public class Main extends JFrame{
 
 		EntityManager.start();
 		
-		
+		addEntity();
 		
 	}
 	
 	private void run() {
 		while(running) {
-			
+			Input.poll();
 
 			this.repaint();
-			addEntity();
+
 			
 			try {
 				Thread.sleep(1);
@@ -83,9 +84,9 @@ public class Main extends JFrame{
 	
 	public void addEntity() {
 		EntityManager.PHYSICS.createNewData(entityID);
-		EntityManager.PHYSICS.sendMessage(new SetPositionMessage(entityID, (int)(Math.random()*Drawing.WIDTH*Drawing.SCALE), (int)(Math.random()*Drawing.HEIGHT*Drawing.SCALE)));
+		EntityManager.PHYSICS.sendMessage(new SetPositionMessage(entityID, Drawing.WIDTH*Drawing.SCALE/2,Drawing.HEIGHT*Drawing.SCALE/2));
 		EntityManager.DRAWING.createNewData(entityID);
-		
+		EntityManager.PLAYER_CONTROLLER.createNewData(entityID);
 		entityID++;
 	}
 	

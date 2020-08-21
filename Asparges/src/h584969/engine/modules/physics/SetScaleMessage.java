@@ -2,11 +2,12 @@ package h584969.engine.modules.physics;
 
 import h584969.engine.IEntityMessage;
 
-public class SetPositionMessage implements IEntityMessage {
+public class SetScaleMessage implements IEntityMessage {
 	long id;
-	float y;
 	float x;
-	public SetPositionMessage(long id, float x, float y) {
+	float y;
+	
+	public SetScaleMessage(long id, float x, float y) {
 		this.id = id;
 		this.x = x;
 		this.y = y;
@@ -14,6 +15,7 @@ public class SetPositionMessage implements IEntityMessage {
 	
 	@Override
 	public int getId() {
-		return PhysicsModule.SET_POSITION;
+		return PhysicsModule.SET_SCALE;
 	}
+
 }
