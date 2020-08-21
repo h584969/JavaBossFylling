@@ -57,7 +57,11 @@ public abstract class EntityModule<T extends IPacket<T>> implements Runnable{
 	protected abstract void terminated();
 	
 	public abstract void sendMessage(IEntityMessage message);
-
+	
+	protected final void logInvalidMessageType(String expected, String recieved) {
+		System.err.println("Error! Feil meldingsType. forventet " + expected + " men fikk " + recieved);
+	}
+	
 	/**
 	 * blir kalt når en modul vil kopiere informasjonen til denne modulen
 	 * 

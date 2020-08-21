@@ -13,6 +13,7 @@ import h584969.engine.data.TransformData;
 import h584969.engine.data.packet.DataPacket;
 import h584969.engine.modules.physics.PhysicsModule;
 import h584969.engine.modules.physics.SetPositionMessage;
+import h584969.engine.modules.physics.TranslateMessage;
 import h584969.graphics.Drawing;
 
 public class PlayerController extends EntityModule<TransformData> {
@@ -40,19 +41,17 @@ public class PlayerController extends EntityModule<TransformData> {
 	@Override
 	protected void update() {
 		if (playerTransform != null) {
-			float px = playerTransform.getPosition().getX();
-			float py = playerTransform.getPosition().getY();
 			if (Input.isHeld(KeyEvent.VK_A)) {
-				EntityManager.PHYSICS.sendMessage(new SetPositionMessage(id, px-1.0f, py));
+				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, -1.0f, 0.0f));
 			}
 			if (Input.isHeld(KeyEvent.VK_D)) {
-				EntityManager.PHYSICS.sendMessage(new SetPositionMessage(id, px+1.0f, py));
+				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, 1.0f, 0.0f));
 			}
 			if (Input.isHeld(KeyEvent.VK_W)) {
-				EntityManager.PHYSICS.sendMessage(new SetPositionMessage(id, px, py-1.0f));
+				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, 0.0f, -1.0f));
 			}
 			if (Input.isHeld(KeyEvent.VK_S)) {
-				EntityManager.PHYSICS.sendMessage(new SetPositionMessage(id, px, py+1.0f));
+				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, 0.0f, 1.0f));
 			}
 		}
 	}
