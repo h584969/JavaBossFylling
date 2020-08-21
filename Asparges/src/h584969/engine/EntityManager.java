@@ -1,57 +1,71 @@
 package h584969.engine;
 
+import java.util.ArrayList;
 
-import h584969.engine.modules.PhysicsModule;
-import h584969.engine.modules.RenderModule;
-import h584969.engine.modules.TransformModule;
+import h584969.engine.data.packet.IPacket;
+import h584969.engine.modules.drawing.DrawingModule;
+import h584969.engine.modules.physics.PhysicsModule;
+
+/*
+ * struktur:
+ *		dataRetrievalRate: int
+ *		getData()
+ *		
+ *		copyData(buffer,ids)
+ *		run() -> fra Runnable
+ *		
+ * faser:
+ * 		1. om vi har ventet lenge nok så henter vi inn ny data
+ * 		2. når dataen er hentet kjøres tick funksjonen
+ * 		3. når vi er ferdig blir dataen lagret for å være tilgjengelig for andre moduler
+ * 		
+ * 
+ * 
+ */
+
 
 public class EntityManager {
-	public static final TransformModule TRANSFORM = new TransformModule();
-	public static final RenderModule RENDER = new RenderModule();
-	public static final PhysicsModule PHYSICS = new PhysicsModule();
+	private static ArrayList<Thread> threads = new ArrayList<>();
+	private static ArrayList<EntityModule<? extends IPacket<? extends Object>>> modules = new ArrayList<>();
 	
-	private static final Thread[] threads = new Thread[3];
-	private static final EntityModule[] modules = new EntityModule[3];
-	
-	private static long idCounter = 1L;
+	public static final PhysicsModule PHYSICS = (PhysicsModule) addModule(new PhysicsModule());
+	public static final DrawingModule DRAWING = (DrawingModule) addModule(new DrawingModule());
 	
 	public static final void start() {
-		threads[0] = new Thread(TRANSFORM); modules[0] = TRANSFORM;
-		threads[1] = new Thread(RENDER); modules[1] = RENDER;
-		threads[2] = new Thread(PHYSICS); modules[2] = PHYSICS;
-		
 		for (Thread t : threads) {
 			t.start();
 		}
 	}
-	
-	public static void tick() {
-		for (EntityModule e : modules) {
-			e.sendNotification(EntityModule.TICK);
+	public static final void terminate() {
+		for (EntityModule<? extends IPacket<? extends Object>> module : modules) {
+			module.termiate();
 		}
-	}
-	
-	public static void terminate() {
-		for (int i = 0; i < modules.length; i++) {
-			modules[i].sendNotification(EntityModule.TERMINATE);
+		
+		
+		for (Thread t : threads) {
+			
 			try {
-				threads[i].join();
+			
+				t.join();
+			
 			} catch (InterruptedException e) {
+				
+				
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("ferdig med å terminere");
 	}
 	
-	private static final Long generateID() {
-		return idCounter++;
+	
+	//TODO finne en litt bedre måte å gjøre dette her på
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private static EntityModule addModule(EntityModule moduleIn){
+		modules.add(moduleIn);
+		threads.add(new Thread(moduleIn));
+		return moduleIn;
 	}
 	
-	public static final void CreateEntity(EntityModule...entityModules) {
-		Long id = generateID();
-		for (EntityModule module : entityModules) {
-			module.addData(id);
-		}
-		System.out.println("lagde: " + id);
-	}
 	
 }

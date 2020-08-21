@@ -7,13 +7,13 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 
 import h584969.engine.EntityManager;
+import h584969.engine.modules.physics.SetPositionMessage;
 import h584969.graphics.Drawing;
-import h584969.util.Vector2;
 
 public class Main extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	
+	private long entityID = 1L;
 	
 	private Drawing drawing;
 	private boolean running;
@@ -57,16 +57,20 @@ public class Main extends JFrame{
 	}
 	
 	private void start() {
-		EntityManager.start();
-		EntityManager.CreateEntity(EntityManager.TRANSFORM,EntityManager.RENDER,EntityManager.PHYSICS);
-		EntityManager.PHYSICS.setVelocity(1L, new Vector2(1,0.0f));
 		running = true;
+
+		EntityManager.start();
+		
+		
+		
 	}
 	
 	private void run() {
 		while(running) {
-			EntityManager.tick();
+			
+
 			this.repaint();
+			addEntity();
 			
 			try {
 				Thread.sleep(1);
@@ -76,8 +80,20 @@ public class Main extends JFrame{
 		}
 		terminate();
 	}
+	
+	public void addEntity() {
+		EntityManager.PHYSICS.createNewData(entityID);
+		EntityManager.PHYSICS.sendMessage(new SetPositionMessage(entityID, (int)(Math.random()*Drawing.WIDTH*Drawing.SCALE), (int)(Math.random()*Drawing.HEIGHT*Drawing.SCALE)));
+		EntityManager.DRAWING.createNewData(entityID);
+		
+		entityID++;
+	}
+	
 	private void terminate() {
+		
+		
 		EntityManager.terminate();
+		
 		dispose();
 	}
 	
