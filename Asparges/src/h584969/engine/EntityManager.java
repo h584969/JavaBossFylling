@@ -2,7 +2,6 @@ package h584969.engine;
 
 import java.util.ArrayList;
 
-import h584969.engine.data.packet.IPacket;
 import h584969.engine.modules.drawing.DrawingModule;
 import h584969.engine.modules.physics.PhysicsModule;
 import h584969.engine.modules.player.PlayerController;

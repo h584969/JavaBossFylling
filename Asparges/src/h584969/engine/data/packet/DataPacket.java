@@ -1,6 +1,6 @@
 package h584969.engine.data.packet;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
 public class DataPacket <T extends IPacket<T>> {

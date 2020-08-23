@@ -20,7 +20,7 @@ public class Main extends JFrame{
 	
 	
 	public Main() {
-		drawing = new Drawing();
+		drawing = Drawing.instance;
 		
 		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -59,7 +59,6 @@ public class Main extends JFrame{
 	
 	private void start() {
 		running = true;
-
 		EntityManager.start();
 		
 		addEntity();
@@ -84,7 +83,7 @@ public class Main extends JFrame{
 	
 	public void addEntity() {
 		EntityManager.PHYSICS.createNewData(entityID);
-		EntityManager.PHYSICS.sendMessage(new SetPositionMessage(entityID, Drawing.WIDTH*Drawing.SCALE/2,Drawing.HEIGHT*Drawing.SCALE/2));
+		EntityManager.PHYSICS.sendMessage(new SetPositionMessage(entityID, Drawing.WIDTH/2,Drawing.HEIGHT/2));
 		EntityManager.DRAWING.createNewData(entityID);
 		EntityManager.PLAYER_CONTROLLER.createNewData(entityID);
 		entityID++;
