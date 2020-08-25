@@ -8,7 +8,12 @@ public class DataPacket <T extends IPacket<T>> {
 	private long[] ids = null;
 	
 	public void addData(T data) {
-		this.data.add(data.createCopy());
+		if (data != null) {
+			this.data.add(data.createCopy());
+		}
+		else {
+			this.data.add(null);
+		}
 	}
 	public void setIds(long[] ids) {
 		this.ids = ids;

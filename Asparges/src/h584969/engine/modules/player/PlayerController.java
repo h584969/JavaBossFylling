@@ -1,9 +1,7 @@
 package h584969.engine.modules.player;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.xml.crypto.dsig.keyinfo.KeyInfo;
+import java.util.Calendar;
 
 import h584969.Input;
 import h584969.engine.EntityManager;
@@ -11,17 +9,25 @@ import h584969.engine.EntityModule;
 import h584969.engine.IEntityMessage;
 import h584969.engine.data.TransformData;
 import h584969.engine.data.packet.DataPacket;
-import h584969.engine.modules.physics.PhysicsModule;
-import h584969.engine.modules.physics.SetPositionMessage;
+import h584969.engine.modules.drawing.SetDrawingListenerMessage;
+import h584969.engine.modules.drawing.SpriteDrawer;
 import h584969.engine.modules.physics.TranslateMessage;
 import h584969.graphics.Drawing;
 
 public class PlayerController extends EntityModule {
-	final Object lock = new Object();
+	private final static float MOVEMENT_SPEED = 10.0f;
 	
-	long id = 0L;
+	private final Object lock = new Object();
+	private long id = 0L;
+	private TransformData playerTransform = null;
 	
-	TransformData playerTransform = null;
+	SpriteDrawer PlayerRight = new SpriteDrawer(Drawing.PLAYER_SPRITE_INDEX);
+	SpriteDrawer PlayerLeft = new SpriteDrawer(Drawing.PLAYER_LEFT_SPRITE_INDEX);
+	int direction = 0;
+	
+	float timeCounter = 0.0f;
+	int updateCounter = 0;
+	
 	
 	@Override
 	public synchronized void createNewData(long id) {
@@ -40,18 +46,35 @@ public class PlayerController extends EntityModule {
 
 	@Override
 	protected void update() {
+		float delta = getFixedDeltaTime();
+		timeCounter+= delta;
+		updateCounter++;
+		if (timeCounter >= 1.0f) {
+			System.out.println(updateCounter);
+			timeCounter = 0;
+			updateCounter = 0;
+		}
+		
 		if (playerTransform != null) {
 			if (Input.isHeld(KeyEvent.VK_A)) {
-				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, -1.0f, 0.0f));
+				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, -MOVEMENT_SPEED*delta, 0.0f));
+				if (direction != 1) {
+					EntityManager.DRAWING.sendMessage(new SetDrawingListenerMessage(id, PlayerLeft));
+					direction = 1;
+				}
 			}
 			if (Input.isHeld(KeyEvent.VK_D)) {
-				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, 1.0f, 0.0f));
+				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, MOVEMENT_SPEED*delta, 0.0f));
+				if (direction != 0) {
+					EntityManager.DRAWING.sendMessage(new SetDrawingListenerMessage(id, PlayerRight));
+					direction = 0;
+				}
 			}
 			if (Input.isHeld(KeyEvent.VK_W)) {
-				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, 0.0f, -1.0f));
+				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, 0.0f, -MOVEMENT_SPEED*delta));
 			}
 			if (Input.isHeld(KeyEvent.VK_S)) {
-				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, 0.0f, 1.0f));
+				EntityManager.PHYSICS.sendMessage(new TranslateMessage(id, 0.0f,MOVEMENT_SPEED*delta));
 			}
 		}
 	}

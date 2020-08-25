@@ -7,6 +7,11 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 
 import h584969.engine.EntityManager;
+import h584969.engine.modules.drawing.ChunkDrawer;
+import h584969.engine.modules.drawing.SetCameraMessage;
+import h584969.engine.modules.drawing.SetCameraOffsetMessage;
+import h584969.engine.modules.drawing.SetDrawingListenerMessage;
+import h584969.engine.modules.drawing.SpriteDrawer;
 import h584969.engine.modules.physics.SetPositionMessage;
 import h584969.graphics.Drawing;
 
@@ -60,8 +65,8 @@ public class Main extends JFrame{
 	private void start() {
 		running = true;
 		EntityManager.start();
-		
-		addEntity();
+		addGround();
+		addPlayer();
 		
 	}
 	
@@ -81,11 +86,19 @@ public class Main extends JFrame{
 		terminate();
 	}
 	
-	public void addEntity() {
+	public void addPlayer() {
 		EntityManager.PHYSICS.createNewData(entityID);
-		EntityManager.PHYSICS.sendMessage(new SetPositionMessage(entityID, Drawing.WIDTH/2,Drawing.HEIGHT/2));
+		//EntityManager.PHYSICS.sendMessage(new SetPositionMessage(entityID, Drawing.WIDTH/2,Drawing.HEIGHT/2));
 		EntityManager.DRAWING.createNewData(entityID);
+		EntityManager.DRAWING.sendMessage(new SetCameraMessage(entityID));
+		EntityManager.DRAWING.sendMessage(new SetCameraOffsetMessage(Drawing.WIDTH/2, Drawing.HEIGHT/2));
 		EntityManager.PLAYER_CONTROLLER.createNewData(entityID);
+		entityID++;
+	}
+	public void addGround() {
+		EntityManager.PHYSICS.createNewData(entityID);
+		EntityManager.DRAWING.createNewData(entityID);
+		EntityManager.DRAWING.sendMessage(new SetDrawingListenerMessage(entityID, new ChunkDrawer("assets/chunks/abc.def")));
 		entityID++;
 	}
 	

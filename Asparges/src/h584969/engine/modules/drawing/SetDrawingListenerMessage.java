@@ -14,6 +14,6 @@ public class SetDrawingListenerMessage implements IEntityMessage {
 	
 	@Override
 	public int getId() {
-		return 0;
+		return DrawingModule.SET_DRAWING_LISTENER;
 	}
 }

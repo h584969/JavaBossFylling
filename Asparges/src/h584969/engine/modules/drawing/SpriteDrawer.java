@@ -15,10 +15,9 @@ public class SpriteDrawer implements IDrawingListener {
 	
 	@Override
 	public void draw(final Graphics2D g2d, final Drawing drawing) {
-		BufferedImage img = drawing.getImage(Drawing.PLAYER_SPRITE_INDEX);
+		BufferedImage img = drawing.getImage(spriteIndex);
 		g2d.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), 0, 0, img.getWidth(), img.getHeight(), null);
 	}
-	
 	
 	public int getSpriteIndex() {
 		return spriteIndex;

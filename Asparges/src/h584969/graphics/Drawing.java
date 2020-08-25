@@ -8,13 +8,12 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import h584969.engine.EntityManager;
-import h584969.util.AssetLoader;
 
 public class Drawing extends JPanel {
 	
@@ -27,12 +26,17 @@ public class Drawing extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	public static final int PLAYER_SPRITE_INDEX = instance.loadImage("assets/textures/player.png");
+	public static final int PLAYER_LEFT_SPRITE_INDEX = instance.loadImage("assets/textures/player_left.png");
+	public static final int GRASS_SPRITE_INDEX = instance.loadImage("assets/textures/grass.png");
 	
 	public static final int WIDTH = 300;
 	public static final int HEIGHT = 200;
 	public static final int SCALE = 3;
 	
 	private ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+	private long curTime = 0L;
+	private long oldTime = Calendar.getInstance().getTimeInMillis();
+	
 	
 	public BufferedImage getImage(int index) {
 		synchronized (images) {
@@ -62,13 +66,16 @@ public class Drawing extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+		curTime = Calendar.getInstance().getTimeInMillis();
+		
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
 		
 		Graphics2D g2d = (Graphics2D)g;
 		AffineTransform t = g2d.getTransform();
 		g2d.scale(SCALE, SCALE);
-		EntityManager.DRAWING.drawSprites(g2d,this);
+		EntityManager.DRAWING.drawSprites(g2d,this,(curTime - oldTime));
+		oldTime = curTime;
 		g2d.setTransform(t);
 	}
 }
