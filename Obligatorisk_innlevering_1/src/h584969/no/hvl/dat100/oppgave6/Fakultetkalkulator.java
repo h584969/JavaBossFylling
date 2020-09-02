@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class Fakultetkalkulator {
 	
-	public static void mainFakultetKalkulator(String[] args) {
+	public static void mainFakultetKalkulator(String[] args ) {
 			JOptionPane.showMessageDialog(null, "Oppgave 6");
 			
 			int n = Integer.parseInt(JOptionPane.showInputDialog("gi et positivt heltall"));

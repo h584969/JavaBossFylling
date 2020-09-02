@@ -3,7 +3,7 @@ package h584969.no.hvl.dat100.oppgave5;
 import javax.swing.JOptionPane;
 
 public class Karakterskala {
-	public static void mainKarakterskala(String[] args) {
+	public static void mainKarakterskala(String[] args ) {
 		JOptionPane.showMessageDialog(null, "Oppgave 5");
 		for (int i = 1; i < 11; i++) {
 			int poengsum;
