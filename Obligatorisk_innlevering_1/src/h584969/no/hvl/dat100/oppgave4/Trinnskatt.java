@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 public class Trinnskatt {
 	public static void mainTrinnskatt(String[] args ) {
+	 
 		JOptionPane.showMessageDialog(null, "Oppgave 4");
 		int bruttoInntekt = Integer.parseInt(JOptionPane.showInputDialog("brutto"));
 		double trinnskatt = 0.0;
