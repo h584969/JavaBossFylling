@@ -11,6 +11,10 @@ public abstract class Component {
 	}
 	
 	
+	/**
+	 * Returnerer spill
+	 * @return
+	 */
 	public GameObject getGameObject() {
 		return object;
 	}

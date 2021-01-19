@@ -3,9 +3,6 @@ package reddikhaien.ai.task.consumer;
 import reddikhaien.ai.task.Task;
 import reddikhaien.komponentsystem.GameObject;
 import reddikhaien.komponentsystem.komponent.Inventory;
-import reddikhaien.world.item.IConsumable;
-import reddikhaien.world.item.ItemStack;
-import reddikhaien.world.item.ItemTags;
 
 public class ConsumeItemFromInventory extends Task {
 
@@ -26,7 +23,6 @@ public class ConsumeItemFromInventory extends Task {
 	@Override
 	public boolean shouldExecute() {
 		return inventory.findFirstItemWithTag(tag) != null;
-	
 	}
 	
 	@Override

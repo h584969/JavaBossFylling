@@ -30,8 +30,8 @@ public class GameObject {
 		}
 	}
 	
-	public void addComponent(Class<? extends Component> type) {
-		system.addComponent(this, type);
+	public <T extends Component> T addComponent(Class<T> type) {
+		return system.addComponent(this, type);
 	}
 	
 	@Override

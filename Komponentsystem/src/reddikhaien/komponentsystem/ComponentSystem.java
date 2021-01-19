@@ -51,7 +51,8 @@ public class ComponentSystem {
 	 * @param object objektet som skal få komponenten
 	 * @param component komponenttypen som skal brukes
 	 */
-	public void addComponent(GameObject object,Class<? extends Component> component) {
+	@SuppressWarnings("unchecked")
+	public <T extends Component> T addComponent(GameObject object,Class<T> component) {
 		try {
 			Constructor<? extends Component> constructor = component.getConstructor(GameObject.class);
 			
@@ -63,6 +64,7 @@ public class ComponentSystem {
 			
 			if (!entities.contains(object)) entities.add(object);
 			
+			return (T) instance;
 		} catch( SecurityException e) {
 			
 			e.printStackTrace();
@@ -82,6 +84,8 @@ public class ComponentSystem {
 			
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 	
 	
