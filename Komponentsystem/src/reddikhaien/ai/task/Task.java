@@ -9,6 +9,11 @@ public abstract class Task {
 	 */
 	public abstract boolean shouldExecute();
 	
+	/**
+	 * Returnerer sann om oppgaven skal fortsette å gjennomføres etter at {@link #startExecute()} er blitt kalt
+	 * 
+	 * @return sann om den skal fortsette usann ellers
+	 */
 	public boolean shouldCountinue() { return false; }
 	
 	/**
@@ -24,7 +29,7 @@ public abstract class Task {
 	public void execute() {}
 	
 	/**
-	 * blir gjennomført når oppgaven fullfører eller blir avbrutt
+	 * blir gjennomført når oppgaven fullfører eller blir avbrutt av en høyere prioritert oppgave
 	 */
 	public void restart() {}
 }

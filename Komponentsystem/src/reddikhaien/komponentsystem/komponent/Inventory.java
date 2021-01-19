@@ -47,6 +47,13 @@ public class Inventory extends Component{
 		
 	}
 	
+	public int findItemIndexWithTag(int tag) {
+		for (int i = 0; i < items.length; i++) {
+			if ((items[i].getItem().getTag() & tag) == tag) return i;
+		}
+		return -1;
+	}
+	
 	public ItemStack findFirstItemWithTag(int tag) {
 		for (ItemStack stack : items) {
 			

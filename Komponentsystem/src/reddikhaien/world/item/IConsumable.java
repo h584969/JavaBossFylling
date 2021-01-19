@@ -4,7 +4,6 @@ import reddikhaien.komponentsystem.GameObject;
 
 public interface IConsumable {
 	
-	
 	/**
 	 * blir kalt når gitt item blir brukt
 	 * f. eks. blir kalt når noen spiser mat.
