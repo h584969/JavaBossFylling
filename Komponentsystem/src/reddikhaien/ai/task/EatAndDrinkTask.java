@@ -23,11 +23,13 @@ public class EatAndDrinkTask extends Task {
 	
 	@Override
 	public boolean shouldExecute() {
+		//System.out.println("tester!!!");
 		return stats.needsFoodAndDrink();
 	}
 	
 	@Override
 	public void startExecute() {
+		System.out.println("starter å skaffe næring");
 		if (stats.needsDrink()) {
 			currentTask = getFirstTrue(drinkFetchTasks);	
 		}
@@ -49,6 +51,7 @@ public class EatAndDrinkTask extends Task {
 	
 	@Override
 	public void execute() {
+		System.out.println("gjennomfører spising og drikking");
 		if (currentTask == null) return;
 		
 		if (currentTask.shouldCountinue()) {
@@ -70,6 +73,7 @@ public class EatAndDrinkTask extends Task {
 
 	@Override
 	public void restart() {
+		System.out.println("restarter spising");
 		if (currentTask != null) currentTask.restart();
 		currentTask = null;
 	

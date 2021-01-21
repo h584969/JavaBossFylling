@@ -2,8 +2,6 @@ package reddikhaien.komponentsystem.event;
 
 import reddikhaien.render.Render;
 
-public interface IDrawable extends IEvent{
-	
-	
-	void draw(Render graphics);
+public interface IPreDrawable extends IEvent {
+	void preDraw(Render r);
 }

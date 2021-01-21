@@ -34,6 +34,12 @@ public class GameObject {
 		return system.addComponent(this, type);
 	}
 	
+	public void init() {
+		for (Component c : components.values()) {
+			c.init();
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		return id;

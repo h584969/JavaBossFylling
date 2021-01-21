@@ -10,9 +10,9 @@ public class LivingStats extends Component implements ITickable{
 	public static final float MAX_THIRST = 20.0f;
 	public static final float MAX_STAMINA = 20.0f;
 	
-	public static final float BASE_STAMINA_USAGE = 0.0001f;
+	public static final float BASE_STAMINA_USAGE = 0.01f;
 	
-	public static final float BASE_STAMINA_REGAIN = 0.01f;
+	public static final float BASE_STAMINA_REGAIN = 0.05f;
 	
 	public static final float BASE_HUNGER_PER_STAMINA = 0.1f;
 	public static final float BASE_THIRST_PER_STAMINA = 0.2f;

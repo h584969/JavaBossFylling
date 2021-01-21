@@ -68,4 +68,8 @@ public class Transform extends Component{
 	public void setSy(float sy) {
 		this.sy = sy;
 	}
+	
+	public float sqrDistanceTo(float px, float py) {
+		return (this.px - px)*(this.px - px) + (this.py - py)*(this.py - py);
+	}
 }

@@ -17,19 +17,30 @@ public class TaskBrain extends Component implements ITickable{
 		this.current = tasks.size();
 	}
 	
+	public void addTasks(Task... tasks) {
+		for (Task task : tasks) {
+			this.tasks.add(task);
+		}
+		this.current = this.tasks.size();
+		
+	}
+	
 	@Override
 	public void tick() {
 		for(int i = 0; i < current; i++) {
 			if(tasks.get(i).shouldExecute()) {
-				if(current < tasks.size()-1) {
+				
+				if(current < tasks.size()) {
 					tasks.get(current).restart();
-					tasks.get(i).startExecute();
-					
-					current = i;
 				}
+				tasks.get(i).startExecute();
+				
+				current = i;
+			
 			}
 		}
-		if(current < tasks.size()-1) {
+		if(current < tasks.size()) {
+			
 			if(tasks.get(current).shouldCountinue()) {
 				tasks.get(current).execute();
 				return;
@@ -40,5 +51,4 @@ public class TaskBrain extends Component implements ITickable{
 			}
 		}
 	}
-
 }

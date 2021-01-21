@@ -25,6 +25,9 @@ public class ItemStack {
 	public void remove(int count) {
 		this.count -= count;
 	}
+	public void increase(int count) {
+		this.count += count;
+	}
 	
 
 	public static final ItemStack EMPTY_STACK = new ItemStack(Item.EMPTY, 0);

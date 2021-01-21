@@ -2,6 +2,7 @@ package reddikhaien.komponentsystem.komponent;
 
 import reddikhaien.komponentsystem.GameObject;
 import reddikhaien.komponentsystem.event.IDrawable;
+import reddikhaien.render.Render;
 
 public class Draw extends Component implements IDrawable{
 
@@ -11,8 +12,9 @@ public class Draw extends Component implements IDrawable{
 	}
 
 	@Override
-	public void draw() {
+	public void draw(Render graphics) {
 		Transform t = getGameObject().getComponent(Transform.class);
+		graphics.drawSpriteInWorld(3, (int)t.getPx(), (int)t.getPy());
 	}
 	
 	

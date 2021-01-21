@@ -10,9 +10,14 @@ public abstract class Component {
 		this.object = object;
 	}
 	
+	/**
+	 * blir kalt når spillobjektet er ferdig konstruert.
+	 */
+	public void init() {}
+	
 	
 	/**
-	 * Returnerer spill
+	 * Returnerer spillobjektet som denne komponenten er koblet til
 	 * @return
 	 */
 	public GameObject getGameObject() {

@@ -101,6 +101,7 @@ public class ComponentSystem {
 		
 		for (final Class<? extends IEvent> event : events.keySet()) {
 			if (event.isAssignableFrom(component.getClass())) {
+				
 				events.get(event).components.add(event.cast(component));
 			}
 		}

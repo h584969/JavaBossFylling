@@ -17,7 +17,7 @@ public class ConsumeItemFromInventory extends Task {
 		this.inventory = object.getComponent(Inventory.class);
 		if (inventory == null) throw new IllegalArgumentException("Spillobject må ha en InventoryKomponent!!");
 		this.itemIndex = -1;
-		this.tag = -1;
+		this.tag = tag;
 	}
 
 	@Override
