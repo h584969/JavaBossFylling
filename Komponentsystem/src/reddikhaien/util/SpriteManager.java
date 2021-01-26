@@ -11,8 +11,10 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import reddikhaien.render.Texture;
+
 public class SpriteManager {
-	private static HashMap<String, int[]> textures = new HashMap<>();
+	private static HashMap<String, Texture> textures = new HashMap<>();
 	private static HashMap<SpriteKey, Integer> mapping = new HashMap<>();
 	private static ArrayList<Sprite> sprites = new ArrayList<>();
 	
@@ -21,12 +23,13 @@ public class SpriteManager {
 		SpriteKey key = new SpriteKey(name, tileX, tileY, tileWidth, tileHeight);
 		
 		if (!mapping.containsKey(key)) {
-			sprites.add(new Sprite(tileX,tileY,tileWidth,tileHeight));
+			Texture tex = getTexture(name);
+			sprites.add(new Sprite(tex,tileX,tileY,tileWidth,tileHeight));
 		}
 		return 0;
 	}
 	
-	private static final int[] getTexture(String name) {
+	private static final Texture getTexture(String name) {
 		if (textures.containsKey(name)) {
 			return textures.get(name);
 		}
@@ -42,7 +45,11 @@ public class SpriteManager {
 			int height = image.getHeight();
 			int[] data = ((DataBufferInt) image.getData().getDataBuffer()).getData();
 		
-			return data;
+			Texture tex = new Texture(data, width, height);
+			
+			textures.put(name, tex);
+			
+			return tex;
 		} catch (IOException e) {
 			System.err.println("Feilet å laste inn " + name);
 			e.printStackTrace();
